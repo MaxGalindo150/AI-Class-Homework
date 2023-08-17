@@ -49,11 +49,15 @@ class Problem:
 
     def result(self, state, action):
         """
-        This is our successor function.
+        This is our successor function. It means that if we give to result(state, action) an action
+        at some state then this function returns a new state.
         """
-        if state.name not in self.actions.keys():
+        if state.name not in self.actions.keys(): # This checks if our current status has actions
             return None
-        actions_state = self.actions[state.name]
-        if action.name not in actions_state.keys():
+        
+        actions_in_state = self.actions[state.name] # We bring available actions of our state
+        
+        if action.name not in actions_in_state.keys(): #This checks if the action is in the available actions.
             return None
-        return actions_state[action.name]
+        
+        return actions_in_state[action.name]
