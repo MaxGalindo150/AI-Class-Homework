@@ -1,26 +1,6 @@
-#Action
-class Action:
-    def __init__(self, name):
-        """Each action needs its name"""
-        self.name = name
 
-    def __str__(self):
-        return self.name
-
-#State
-class State:
-    def __init__(self, name, actions):
-        """
-        Since in each state you can do different actions,
-        we added the actions parameter.
-        """
-        self.name = name
-        self.actions = actions
-
-    def _str_(self):
-        return self.name
-    
-#Problem 
+import re
+# Problem 
 class Problem:
     def __init__(self, initial_state, goal_test, actions):
         """
@@ -52,12 +32,70 @@ class Problem:
         This is our successor function. It means that if we give to result(state, action) an action
         at some state then this function returns a new state.
         """
-        if state.name not in self.actions.keys(): # This checks if our current status has actions
+        if state not in self.actions.keys(): # This checks if our current status has actions
             return None
         
-        actions_in_state = self.actions[state.name] # We bring available actions of our state
+        actions_in_state = self.actions[state] # We bring available actions of our state
         
-        if action.name not in actions_in_state.keys(): #This checks if the action is in the available actions.
+        if action not in actions_in_state.keys(): #This checks if the action is in the available actions.
             return None
         
-        return actions_in_state[action.name]
+        return actions_in_state[action]
+    
+    def print_path(self, l):
+        print('-->'.join(l))
+    
+
+
+
+# Graphs
+
+Graph = {
+    'Arad': {'GoSibiu': 'Sibiu', 'GoZerind': 'Zerind', 'GoTimisoara': 'Timisoara'},
+    'Bucharest': {'GoGiurgiu': 'Giurgiu', 'GoFagaras': 'Fagaras', 'GoPitesti': 'Pitesti', 'GoUrziceni': 'Urziceni'},
+    'Craiova': {'GoDobreta': 'Dobreta', 'GoPitesti': 'Pitesti', 'GoRimnicu Vilcea': 'Rimnicu Vilcea'},
+    'Dobreta': {'GoCraiova': 'Craiova', 'GoMehadia': 'Mehadia'},
+    'Eforie': {'GoHirsova': 'Hirsova'},
+    'Fagaras': {'GoBucharest': 'Bucharest', 'GoSibiu': 'Sibiu'},
+    'Giurgiu': {'GoBucharest': 'Bucharest'},
+    'Hirsova': {'GoEforie': 'Eforie', 'GoUrziceni': 'Urziceni'},
+    'Iasi': {'GoNeamt': 'Neamt', 'GoVaslui': 'Vaslui'},
+    'Lugoj': {'GoMehadia': 'Mehadia', 'GoTimisoara': 'Timisoara'},
+    'Mehadia': {'GoDobreta': 'Dobreta', 'GoLugoj': 'Lugoj'},
+    'Neamt': {'GoIasi': 'Iasi'},
+    'Oradea': {'GoSibiu': 'Sibiu', 'GoZerind': 'Zerind'},
+    'Pitesti': {'GoBucharest': 'Bucharest', 'GoCraiova': 'Craiova', 'GoRimnicu Vilcea': 'Rimnicu Vilcea'},
+    'Rimnicu Vilcea': {'GoCraiova': 'Craiova', 'GoPitesti': 'Pitesti', 'GoSibiu': 'Sibiu'},
+    'Sibiu': {'GoArad': 'Arad', 'GoFagaras': 'Fagaras', 'GoOradea': 'Oradea', 'GoRimnicu Vilcea': 'Rimnicu Vilcea'},
+    'Timisoara': {'GoArad': 'Arad', 'GoLugoj': 'Lugoj'},
+    'Urziceni': {'GoBucharest': 'Bucharest', 'GoHirsova': 'Hirsova', 'GoVaslui': 'Vaslui'},
+    'Vaslui': {'GoIasi': 'Iasi', 'GoUrziceni': 'Urziceni'},
+    'Zerind': {'GoArad': 'Arad', 'GoOradea': 'Oradea'}
+}
+
+G_cost = {
+    'Arad': {'Sibiu':140,'Zerind': 75, 'Timisoara': 118},
+    'Bucharest':{'Giurgiu': 90, 'Fagaras': 211,'Pitesti': 101,'Urziceni': 85},
+    'Craiova':{'Dobreta': 120, 'Pitesti': 138,'Rimnicu Vilcea': 146},
+    'Dobreta':{'Craiova': 120, 'Mehadia': 75},
+    'Eforie':{'Hirsova': 86},
+    'Fagaras':{'Bucharest': 211, 'Sibiu': 99},
+    'Giurgiu':{'Bucharest': 90},
+    'Hirsova':{'Eforie': 86,'Urziceni': 98},
+    'Iasi':{'Neamt': 87,'Vaslui': 92},
+    'Lugoj':{'Mehadia': 70, 'Timisoara': 111},
+    'Mehadia':{'Dobreta': 75, 'Lugoj': 70},
+    'Neamt':{'Iasi': 87},
+    'Oradea':{'Sibiu': 151, 'Zerind': 71},
+    'Pitesti':{'Bucharest': 101, 'Craiova': 138, 'Rimnicu Vilcea': 97},
+    'Rimnicu Vilcea':{'Craiova': 146, 'Pitesti': 97, 'Sibiu': 80},
+    'Sibiu':{'Arad': 140, 'Fagaras': 99, 'Oradea': 151,'Rimnicu Vilcea': 80},
+    'Timisoara':{'Arad': 118,'Lugoj': 111},
+    'Urziceni':{'Bucharest': 85, 'Hirsova': 98, 'Vaslui': 142},
+    'Vaslui':{'Iasi': 92,'Urziceni': 142},
+    'Zerind':{'Arad': 75, 'Oradea': 71}
+}
+
+
+
+
