@@ -17,7 +17,7 @@ def recursive_DLS(node, problem, depth_limit):
 
     
     for action in problem.actions[node].keys():
-        child = problem.result(node, action)
+        (child,_) = problem.result(node, action)
         result = recursive_DLS(child, problem, depth_limit - 1)
         
         if result == 'cutoff':
@@ -32,7 +32,7 @@ def recursive_DLS(node, problem, depth_limit):
         return None
  
 
-def iterative_deepening_search(problem, max_depth):
+def iterative_search(problem, max_depth):
     for depth in range(max_depth + 1):
         print(f"Depth Limit: {depth}")
         if DLS(problem, depth):
@@ -42,4 +42,4 @@ def iterative_deepening_search(problem, max_depth):
 
 # Example problem instantiation
 arad_to_bucharest = Problem('Arad', ['Bucharest'], Graph)
-iterative_deepening_search(arad_to_bucharest, 10)
+iterative_search(arad_to_bucharest, 10)

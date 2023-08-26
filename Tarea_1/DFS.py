@@ -19,7 +19,7 @@ def DFS(problem):
             return True
         
         for action in problem.actions[node].keys():
-            child = problem.result(node, action)
+            (child,_) = problem.result(node, action)
             if child not in explored and child not in [nodes_in_frontier for nodes_in_frontier, _ in frontier]:
                 frontier.append((child, path + [child]))
 
