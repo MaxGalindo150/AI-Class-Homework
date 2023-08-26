@@ -1,5 +1,4 @@
 
-import re
 # Problem 
 class Problem:
     def __init__(self, initial_state, goal_test, actions):

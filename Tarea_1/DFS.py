@@ -1,4 +1,4 @@
-from problem import Problem, Graph  # Import only what you need
+from problem import Problem, Graph  
 
 def DFS(problem):
     node = problem.initial_state
@@ -8,10 +8,10 @@ def DFS(problem):
         return True
     
     frontier = [(node, [node])]
-    explored = set()  # Using a set for faster membership checking
-    
+    explored = set() 
+
     while frontier:
-        (node, path) = frontier.pop()  # Using pop() for DFS behavior
+        (node, path) = frontier.pop()  # Using pop() for DFS behavior (LIFO)
         explored.add(node)
 
         if problem.is_goal(node):

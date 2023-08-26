@@ -1,4 +1,4 @@
-from problem import Problem, Graph # Import only what you need
+from problem import Problem, Graph # Import the Class Problem and the graph
 
 def BFS(problem):
     node = problem.initial_state
@@ -11,7 +11,7 @@ def BFS(problem):
     explored = set()
     
     while frontier:
-        (node, path) = frontier.pop(0)
+        (node, path) = frontier.pop(0) # Using pop() for DFS behavior (FIFO)
         explored.add(node)
 
         if problem.is_goal(node):
