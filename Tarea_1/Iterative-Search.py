@@ -6,7 +6,6 @@ def DLS(problem, depth_limit):
 def recursive_DLS(node, problem, depth_limit):
     
     if problem.is_goal(node):
-        print(f'You have arrived at {node}')
         return [node]
     
     if depth_limit == 0:
@@ -34,7 +33,6 @@ def recursive_DLS(node, problem, depth_limit):
 
 def iterative_search(problem, max_depth):
     for depth in range(max_depth + 1):
-        print(f"Depth Limit: {depth}")
         if DLS(problem, depth):
             return True
     return False

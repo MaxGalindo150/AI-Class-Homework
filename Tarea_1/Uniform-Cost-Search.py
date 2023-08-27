@@ -1,5 +1,4 @@
-from problem import Problem, Graph
-from problem import PriorityQueue 
+from problem import Problem, Graph, PriorityQueue
 
 def UCS(problem):
     node = problem.initial_state
@@ -13,7 +12,7 @@ def UCS(problem):
 
         if problem.is_goal(node):
             problem.print_path(path + [node]) 
-            print(current_cost)         # Print path including the current node
+            print(f'Total Cost: {current_cost}')         # Print path including the current node
             return True
 
         for action in problem.actions[node].keys():

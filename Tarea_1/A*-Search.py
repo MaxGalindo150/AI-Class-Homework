@@ -11,7 +11,8 @@ def a_star_search(problem, heuristic):
         explored.add(node)
 
         if problem.is_goal(node):
-            problem.print_path(path + [node]) 
+            problem.print_path(path + [node])
+            print(f'Total Cost: {g_cost}')
             return True
 
         for action in problem.actions[node].keys():
@@ -25,5 +26,4 @@ def a_star_search(problem, heuristic):
     return False  # No solution found
 
 problem = Problem('Arad', ['Bucharest'], Graph)
-heuristic = heuristics  # Use the provided heuristics dictionary
-a_star_search(problem, heuristic)
+a_star_search(problem, heuristics)
