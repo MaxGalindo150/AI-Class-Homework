@@ -45,6 +45,34 @@ class Problem:
     
     def print_path(self, path):
         print('-->'.join(path))
+
+
+class KnapsackProblem(Problem):
+    def __init__(self, capacity, values, weights):
+        self.capacity = capacity
+        self.values = values
+        self.weights = weights
+        self.num_items = len(values)
+        initial_state = (0, 0, 0)  # Current item index, total value, total weight
+        goal_test = self.num_items
+        actions = list(range(self.num_items))
+        super().__init__(initial_state, goal_test, actions)
+
+    def is_goal(self, state):
+        return state[0] == self.num_items or state[2] > self.capacity
+
+    def result(self, state, action):
+        if state[0] >= self.num_items:
+            return None
+        
+        next_item = state[0] + 1
+        next_value = state[1] + self.values[action]
+        next_weight = state[2] + self.weights[action]
+        return (next_item, next_value, next_weight)
+
+
+
+
     
 #Priority Queue
 class PriorityQueue:
