@@ -1,4 +1,4 @@
-from problem import Problem, Graph, PriorityQueue
+from problem import Problem, Graph, PriorityQueue # Import the Class Problem and the graph
 
 def UCS(problem):
     node = problem.initial_state

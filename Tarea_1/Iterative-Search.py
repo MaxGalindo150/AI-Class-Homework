@@ -1,4 +1,4 @@
-from problem import Problem, Graph
+from problem import Problem, Graph # Import the Class Problem and the graph
 
 def DLS(problem, depth_limit):
     return recursive_DLS(problem.initial_state, problem, depth_limit)
@@ -12,7 +12,7 @@ def recursive_DLS(node, problem, depth_limit):
         return None
     
     
-    cutoff_occurred = False
+    cutoff_occurred = False #cutoff false
 
     
     for action in problem.actions[node].keys():
@@ -20,7 +20,7 @@ def recursive_DLS(node, problem, depth_limit):
         result = recursive_DLS(child, problem, depth_limit - 1)
         
         if result == 'cutoff':
-            cutoff_occurred = True
+            cutoff_occurred = True #Change cutoff state
         elif result is not None:
             problem.print_path([node] + result)
             return [node] + result

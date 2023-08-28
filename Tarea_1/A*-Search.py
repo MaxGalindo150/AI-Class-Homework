@@ -1,4 +1,4 @@
-from problem import Problem, PriorityQueue, Graph, heuristics
+from problem import Problem, PriorityQueue, Graph, heuristics # Import the Class Problem and the graph
 
 def a_star_search(problem, heuristic):
     node = problem.initial_state
@@ -7,7 +7,7 @@ def a_star_search(problem, heuristic):
     explored = set()
 
     while frontier._elements:
-        (node, path, g_cost) = frontier.pop()  # Tuple format: (node, path, g_cost)
+        (node, path, g_cost) = frontier.pop()  
         explored.add(node)
 
         if problem.is_goal(node):

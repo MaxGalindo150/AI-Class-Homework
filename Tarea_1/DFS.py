@@ -1,4 +1,4 @@
-from problem import Problem, Graph  
+from problem import Problem, Graph  # Tuple format: (node, path, g_cost)
 
 def DFS(problem):
     node = problem.initial_state
@@ -7,7 +7,7 @@ def DFS(problem):
         print(f'You are already at the goal: {node}')
         return True
     
-    frontier = [(node, [node])]
+    frontier = [(node, [node])] # Tuple format: (node, path)
     explored = set() 
 
     while frontier:

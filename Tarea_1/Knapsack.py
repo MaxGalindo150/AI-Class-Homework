@@ -1,26 +1,30 @@
 from problem import PriorityQueue
 
+#Open ks_19_0 file
+
 with open('ks_19_0', 'r') as file:
        first_line19 = file.readline().split()
        num_elements19 = int(first_line19[0])
        capacity19 = int(first_line19[1])
        
-       items19 = {}
+       items19 = {}                             # Create tree with the items from ks_19_0
        for _ in range(num_elements19):
            v, w = map(int, file.readline().split())
            items19[v] = (v,w)
+
+#Open ks_10000_0 file
 
 with open('ks_10000_0', 'r') as file:
        first_line10000 = file.readline().split()
        num_elements10000 = int(first_line10000[0])
        capacity10000 = int(first_line10000[1])
        
-       items10000 = {}
+       items10000 = {}                      # Create tree with the items from ks_10000_0
        for _ in range(num_elements10000):
            v, w = map(int, file.readline().split())
            items10000[v] = (v,w)
 
-# Simple heuristic: value-to-weight ratio
+# Simple heuristic: value/weight 
 def heuristic(items):
     heuristic = {}
     for i in items.keys():
@@ -28,8 +32,8 @@ def heuristic(items):
         heuristic[i] = v/w 
     return heuristic
 
-heuristic19 = heuristic(items19)
-heuristic10000 = heuristic(items10000)
+heuristic19 = heuristic(items19) #Heuristic for ks_19_0
+heuristic10000 = heuristic(items10000) #Heuristic for  ks_10000_0
 
 
 def knapsack_GS(items, capacity, heuristic):
@@ -39,7 +43,7 @@ def knapsack_GS(items, capacity, heuristic):
     frontier = PriorityQueue()
     
     for item in items.keys():
-        frontier.push((item, items[item]), -heuristic[item])
+        frontier.push((item, items[item]), -heuristic[item]) # We choose the elements with the highest value/weight quantity 
     explored = set()
 
     while frontier._elements:
