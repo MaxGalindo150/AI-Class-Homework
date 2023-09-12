@@ -1,3 +1,5 @@
+import datetime
+start = datetime.datetime.now()
 class NQueens_Backtracking:
 
     def __init__(self, N):
@@ -34,9 +36,15 @@ class NQueens_Backtracking:
             line = ["Q" if i == row else "." for i in range(self.N)]
             print(" ".join(line))
 
-N = 50 
+N = 8
 n_queens_problem = NQueens_Backtracking(N)
+
+end = datetime.datetime.now()
+
+total_time = end - start
+
 if n_queens_problem.solve(0):
+    print(f'Tiempo: {total_time} seg')
     print(f"Solución para {N} reinas:")
     n_queens_problem.display()
 else:
