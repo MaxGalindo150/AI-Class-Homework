@@ -1,6 +1,5 @@
 from problem import Problem, PriorityQueue, Graph, heuristics # Import the Class Problem and the graph
 
-
 def GS(problem, heuristic):
     node = problem.initial_state
     frontier = PriorityQueue()

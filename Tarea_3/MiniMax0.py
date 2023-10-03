@@ -98,23 +98,17 @@ def get_best_move_MIN(state):
 flag = True
 # Loop principal del juego
 while True:
-    # Turno de MAX
     print_state(state)
-    print("Turno de MAX (O)")
-    
-    # Modificación para la primera jugada de MAX
-    if flag:
-        flag = False
-        max_move = random.choice([i for i, value in enumerate(state) if value == ' '])
-        state[max_move] = 'O'
+    player_move = int(input("Tu turno de Max (0-8): "))
+    if state[player_move] == ' ':
+        state[player_move] = 'O'
     else:
-        max_move = get_best_move_MAX(state)
-        if state[max_move] == ' ':
-            state[max_move] = 'O'
-    
+        print("¡Esa casilla ya está ocupada!")
+        continue
+
     if check_win(state, 'O'):
         print_state(state)
-        print("MAX ganó")
+        print("¡Ganaste!")
         break
     elif is_full(state):
         print_state(state)

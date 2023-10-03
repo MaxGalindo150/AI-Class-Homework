@@ -66,6 +66,6 @@ def knapsack_GS(items, capacity, heuristic):
     return True
 
 
-#knapsack_GS(items19,capacity19, heuristic19)
-knapsack_GS(items10000,capacity10000,heuristic10000)
+knapsack_GS(items19,capacity19, heuristic19)
+#knapsack_GS(items10000,capacity10000,heuristic10000)
 

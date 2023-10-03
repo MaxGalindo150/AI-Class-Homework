@@ -1,7 +1,7 @@
 import random
 
 # Definir el tablero del juego de gato como una lista de 9 espacios (3x3)
-state = [' ' for _ in range(9)] # Estado incial
+state = [' ' for _ in range(9)]  # Estado incial
 
 # Función para imprimir el tablero
 def print_state(state):
@@ -12,96 +12,95 @@ def print_state(state):
 
 # Función para verificar si un jugador está en algún estado términal
 def check_win(state, player):
-    win_combinations = [(0, 1, 2), (3, 4, 5), (6, 7, 8), (0, 3, 6), (1, 4, 7), (2, 5, 8), (0, 4, 8), (2, 4, 6)]  
+    win_combinations = [(0, 1, 2), (3, 4, 5), (6, 7, 8), (0, 3, 6), (1, 4, 7), (2, 5, 8), (0, 4, 8), (2, 4, 6)]
     for combo in win_combinations:
         if all(state[i] == player for i in combo):
             return True
     return False
 
 # Función para verificar si el tablero está lleno (Estado terminal de empate)
-def is_full(state): 
+def is_full(state):
     return ' ' not in state
 
-def max_value(state, depth, alpha, beta):
-    max_eval = float('-inf')
-    for i in range(9):
-        if state[i] == ' ':
-            state[i] = 'O'
-            eval = minimax(state, depth + 1, False, alpha, beta) # Baja un nodo donde jugó MIN
-            state[i] = ' '
-            max_eval = max(max_eval, eval)
-            alpha = max(alpha, eval)
-            if beta <= alpha:
-                break
-    return max_eval
-
-def min_value(state, depth, alpha, beta):
-    min_eval = float('inf')
-    for i in range(9):
-        if state[i] == ' ':
-            state[i] = 'X'
-            eval = minimax(state, depth + 1, True, alpha, beta) # Baja un nodo donde jugó MAX
-            state[i] = ' '
-            min_eval = min(min_eval, eval)
-            beta = min(beta, eval)
-            if beta <= alpha:
-                break
-    return min_eval
-
-
-# Función Minimax con poda alfa-beta
-def minimax(state, depth, is_maximizing, alpha, beta):
-    # Despachador para estados terminales
-    if check_win(state, 'X'):
-        return -1
-    elif check_win(state, 'O'):
+def max_value(state, depth):
+    if check_win(state, 'O'):
         return 1
     elif is_full(state):
         return 0
-    # Despachador
-    if is_maximizing:
-        return max_value(state, depth, alpha, beta)
-    else:
-        return min_value(state, depth, alpha, beta)
 
-# Función para obtener la mejor jugada para MAX
+    max_eval = float('-inf')
+    empty_cells = [i for i, value in enumerate(state) if value == ' ']
+
+    for cell in empty_cells:
+        state[cell] = 'O'
+        eval = expectimax(state, depth + 1, False)
+        state[cell] = ' '
+        max_eval = max(max_eval, eval)
+
+    return max_eval
+
+def expectimax(state, depth, is_maximizing):
+    if check_win(state, 'X'):
+        return -1
+    elif is_full(state):
+        return 0
+
+    if is_maximizing:
+        return max_value(state, depth)
+    else:
+        total_eval = 0
+        empty_cells = [i for i, value in enumerate(state) if value == ' ']
+        num_empty_cells = len(empty_cells)
+
+        for cell in empty_cells:
+            state[cell] = 'X'
+            eval = expectimax(state, depth + 1, True)
+            state[cell] = ' '
+            total_eval += eval
+
+        return total_eval / num_empty_cells
+
+# Función para obtener la mejor jugada para MAX (Expectimax)
 def get_best_move_MAX(state):
     best_move = -1
     best_eval = float('-inf')
-    alpha = float('-inf')
-    beta = float('inf')
-    for i in range(9):
-        if state[i] == ' ':
-            state[i] = 'O'
-            eval = minimax(state, 0, False, alpha, beta)
-            state[i] = ' '
-            if eval > best_eval:
-                best_eval = eval
-                best_move = i
+    empty_cells = [i for i, value in enumerate(state) if value == ' ']
+
+    for cell in empty_cells:
+        state[cell] = 'O'
+        eval = expectimax(state, 0, False)
+        state[cell] = ' '
+
+        if eval > best_eval:
+            best_eval = eval
+            best_move = cell
+
     return best_move
 
-# Función para obtener la mejor jugada para MIN
+# Función para obtener la mejor jugada para MIN (Expectimax)
 def get_best_move_MIN(state):
     best_move = -1
     best_eval = float('inf')
-    alpha = float('-inf')
-    beta = float('inf')
-    for i in range(9):
-        if state[i] == ' ':
-            state[i] = 'X'
-            eval = minimax(state, 0, True, alpha, beta)
-            state[i] = ' '
-            if eval < best_eval:
-                best_eval = eval
-                best_move = i
+    empty_cells = [i for i, value in enumerate(state) if value == ' ']
+
+    for cell in empty_cells:
+        state[cell] = 'X'
+        eval = expectimax(state, 0, True)
+        state[cell] = ' '
+
+        if eval < best_eval:
+            best_eval = eval
+            best_move = cell
+
     return best_move
+
 flag = True
 # Loop principal del juego
 while True:
     # Turno de MAX
     print_state(state)
     print("Turno de MAX (O)")
-    
+
     # Modificación para la primera jugada de MAX
     if flag:
         flag = False
@@ -111,7 +110,7 @@ while True:
         max_move = get_best_move_MAX(state)
         if state[max_move] == ' ':
             state[max_move] = 'O'
-    
+
     if check_win(state, 'O'):
         print_state(state)
         print("MAX ganó")
@@ -120,6 +119,7 @@ while True:
         print_state(state)
         print("Empate")
         break
+
     # Turnos de MIN
     print_state(state)
     print("Turno de MIN (X)")
@@ -138,5 +138,3 @@ while True:
         print_state(state)
         print("Empate")
         break
-    
-    

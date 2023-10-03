@@ -6,7 +6,7 @@ def BFS(problem):
     if problem.is_goal(node):
         print(f'You are already at the goal: {node}')
         return True
-    
+        
     frontier = [(node, [node])] # Tuple format: (node, path)
     explored = set()
     
